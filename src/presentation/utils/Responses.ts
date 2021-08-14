@@ -1,4 +1,5 @@
-import { IHttpResponse } from "../protocols"
+import { IHttpResponse } from "../protocols";
+import { BaseError } from './../../domain/errors/BaseError';
 
 const ok = (body: any) => {
   return {
@@ -7,6 +8,14 @@ const ok = (body: any) => {
   } as IHttpResponse;
 }
 
+const badRequest = (error: BaseError) => {
+  return {
+    statusCode: 400,
+    body: error,
+  } as IHttpResponse;
+}
+
 export {
   ok,
+  badRequest,
 }
