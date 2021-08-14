@@ -4,8 +4,9 @@ import { MissingParameterError } from './../../../domain/errors/MissingParameter
 
 class Register implements IHttpService {
   handle(request: IHttpRequest): IHttpResponse {
-    const { latitude } = request.body;
+    const { latitude, longitude } = request.body;
     if (!latitude) return badRequest(new MissingParameterError('latitude'));
+    if (!longitude) return badRequest(new MissingParameterError('longitude'));
     return ok({ message: "ok" });
   }
 }

@@ -33,7 +33,17 @@ describe('Pets Register Service Test Suite', () => {
     const { sut } = makeSut();
     const missingParam = 'latitude';
     const mockRequest = makeValidPetRegistrationRequest();
-    delete mockRequest.body.latitude;
+    delete mockRequest.body[missingParam];
+    const response = sut.handle(mockRequest);
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(new MissingParameterError(missingParam))
+  });
+
+  it('Should return badRequest if longitude isnt provided', () => {
+    const { sut } = makeSut();
+    const missingParam = 'longitude';
+    const mockRequest = makeValidPetRegistrationRequest();
+    delete mockRequest.body[missingParam];
     const response = sut.handle(mockRequest);
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual(new MissingParameterError(missingParam))
