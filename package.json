@@ -1,0 +1,31 @@
+{
+  "name": "petrescue-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Andre Treib",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.4",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "build": "yarn tsc",
+    "dev": "ts-node-dev —transpile-only —ignore-watch node_modules src/index.ts",
+    "test": "jest --passWithNoTests --runInBand",
+    "test:ci": "yarn test -- --coverage"
+  }
+}
