@@ -9,15 +9,19 @@ interface ISutTypes {
   sut: Register;
 }
 
+const makeRegisteredPetMock = (): IPetModel => {
+  return {
+    id: 'mock_id',
+    insertedAt: new Date(),
+    latitude: 30.00000001,
+    longitude: -51.999999991,
+  };
+}
+
 const makePetRegistrationServiceMock = (): IRegister => {
   class MockPetRegistrationService implements IRegister {
     register(pet: IRegisterPetRequest): IPetModel {
-      return {
-        id: 'mock_id',
-        insertedAt: new Date(),
-        latitude: 30.00000001,
-        longitude: -51.999999991,
-      }
+      return makeRegisteredPetMock();
     }
   }
   return new MockPetRegistrationService();
@@ -39,14 +43,6 @@ const makeValidPetRegistrationRequest = (): IHttpRequest => {
 }
 
 describe('Pets Register Service Test Suite', () => {
-  it('Should return an ok if provided data is valid', () => {
-    const { sut } = makeSut();
-    const mockRequest = makeValidPetRegistrationRequest();
-    const response = sut.handle(mockRequest)
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual({ message: "ok" });
-  });
-
   it('Should return badRequest if latitude isnt provided', () => {
     const { sut } = makeSut();
     const missingParam = 'latitude';
@@ -76,5 +72,17 @@ describe('Pets Register Service Test Suite', () => {
       latitude: mockRequest.body.latitude,
       longitude: mockRequest.body.longitude,
     });
-  })
+  });
+
+  it('Should return the registered pet', () => {
+    const { sut, mockPetRegistration } = makeSut();
+    const registeredPetMock = makeRegisteredPetMock();
+    jest.spyOn(mockPetRegistration, 'register').mockImplementationOnce(() => {
+      return registeredPetMock;
+    });
+    const mockRequest = makeValidPetRegistrationRequest();
+    const response = sut.handle(mockRequest);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(registeredPetMock);
+  });
 });

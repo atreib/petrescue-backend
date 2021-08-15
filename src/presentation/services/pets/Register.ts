@@ -12,8 +12,8 @@ class Register implements IHttpService {
     const { latitude, longitude } = request.body;
     if (!latitude) return badRequest(new MissingParameterError('latitude'));
     if (!longitude) return badRequest(new MissingParameterError('longitude'));
-    this.registerService.register({ latitude, longitude });
-    return ok({ message: "ok" });
+    const registeredPet = this.registerService.register({ latitude, longitude });
+    return ok(registeredPet);
   }
 }
 
