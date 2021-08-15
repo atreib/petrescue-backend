@@ -26,9 +26,9 @@ This project development is being driven by our architecture diagram. This diagr
 
 # 📔 Read more
 
-- (TO-DO) Environment setup
+- [Environment setup](docs/environment-setup.md)
 - (TO-DO) Project setup
-- (TO-DO) Contributing
+- [Contributing](docs/contributing.md)
 
 # 👨🏻‍💻 Commands list:
 
