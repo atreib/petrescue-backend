@@ -43,7 +43,7 @@ const makeValidPetRegistrationRequest = (): IHttpRequest => {
   } as IHttpRequest;
 }
 
-describe('Pets Register Service Test Suite', () => {
+describe('Pets Registration HTTP Controller Test Suite', () => {
   it('Should return badRequest if latitude isnt provided', () => {
     const { sut } = makeSut();
     const missingParam = 'latitude';
