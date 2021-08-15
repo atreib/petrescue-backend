@@ -15,7 +15,15 @@ const badRequest = (error: BaseError) => {
   } as IHttpResponse;
 }
 
+const serverError = (error: BaseError) => {
+  return {
+    statusCode: 500,
+    body: error,
+  } as IHttpResponse;
+}
+
 export {
   ok,
   badRequest,
+  serverError,
 }
