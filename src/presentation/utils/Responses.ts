@@ -1,3 +1,4 @@
+import { InternalServerError } from "../../domain/errors/InternalServerError";
 import { IHttpResponse } from "../protocols";
 import { BaseError } from './../../domain/errors/BaseError';
 
@@ -18,7 +19,7 @@ const badRequest = (error: BaseError) => {
 const serverError = (error: BaseError) => {
   return {
     statusCode: 500,
-    body: error,
+    body: new InternalServerError(error),
   } as IHttpResponse;
 }
 
