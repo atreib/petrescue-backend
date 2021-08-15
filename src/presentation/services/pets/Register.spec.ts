@@ -3,6 +3,7 @@ import { IRegister, IRegisterPetRequest } from './../../../domain/protocols/pets
 import { IPetModel } from './../../../domain/models/Pet';
 import { IHttpRequest } from '../../protocols';
 import { Register } from './Register';
+import { InternalServerError } from '../../../domain/errors/InternalServerError';
 
 interface ISutTypes {
   mockPetRegistration: IRegister;
@@ -84,5 +85,17 @@ describe('Pets Register Service Test Suite', () => {
     const response = sut.handle(mockRequest);
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(registeredPetMock);
+  });
+
+  it('Should return status 500 if something unexpected is thrown', () => {
+    const { sut, mockPetRegistration } = makeSut();
+    const expectedError = new Error('mock_error');
+    jest.spyOn(mockPetRegistration, 'register').mockImplementationOnce(() => {
+      throw expectedError;
+    });
+    const mockRequest = makeValidPetRegistrationRequest();
+    const response = sut.handle(mockRequest)
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual(new InternalServerError(expectedError));
   });
 });
