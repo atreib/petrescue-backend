@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-export default {
+module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -23,6 +23,7 @@ export default {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/**/protocols/*',
+    '!<rootDir>/src/**/contracts/**/*',
     '!<rootDir>/src/domain/**/*',
   ],
 
